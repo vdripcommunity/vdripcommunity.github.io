@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Example</title>
+</head>
+<body>
+    <h1>Submit Form</h1>
+    <form action="process.php" method="post">
+        <label class="label" for="team">Team:</label>
+        <input type="text" id="team" name="team" required><br><br>
+
+        <label class="label" for="wallet_address">Wallet Address:</label>
+        <input type="text" id="wallet_address" name="wallet_address" required><br><br>
+
+        <label class="label" for="incentive">Incentive:</label>
+        <input type="text" step="0.01" id="incentive" name="incentive" required><br><br>
+
+        <input class="btnform" type="submit" value="Submit">
+    </form>
+
+    <!-- Display a message when the page is updated -->
+    <div id="update-message"></div>
+
+    <!-- Display the submitted data here -->
+    <div id="data-table">
+        <!-- The data table will be loaded here using AJAX -->
+    </div>
+
+    <script>
+        // Function to load and display the data table using AJAX
+        function loadDataTable() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    document.getElementById("data-table").innerHTML = this.responseText;
+                    document.getElementById("update-message").innerText = "Page updated.";
+                }
+            };
+            xhttp.open("GET", "fetch_data.php", true);
+            xhttp.send();
+        }
+
+        // Call the function to load the data table on page load
+        loadDataTable();
+    </script>
+</body>
+</html>
